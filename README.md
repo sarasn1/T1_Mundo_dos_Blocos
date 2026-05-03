@@ -2,7 +2,7 @@
 
 Repositório para o trabalho 1 da disciplina de IA. 
 
-Alunos: Maria Sara Navarro [22051556] | Kevyn Gondim | Iasmin Rocha | Sabrina Penha
+Alunos: Maria Sara Navarro [22051556] | Kevyn do Nascimento Paz Gondim  [22153920] | Iasmin Rocha dos Santos [22052625] | Sabrina Amorim da Penha [22152026]
 
 ---
 
