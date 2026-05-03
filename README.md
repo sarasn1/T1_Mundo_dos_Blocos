@@ -11,7 +11,7 @@ Maria Sara Navarro [22051556] | Kevyn Gondim | Iasmin Rocha | Sabrina Penha
 
 ## Introdução
 
-Este trabalho aborda o problema do Mundo dos Blocos, estendido para um cenário onde os blocos possuem diferentes dimensões horizontais. O objetivo é desenvolver um planejador capaz de transformar um estado inicial em um estado final desejado, respeitando restrições físicas.
+Este trabalho aborda o problema do Mundo dos Blocos com extensão para blocos de diferentes tamanhos. O objetivo é desenvolver um planejador capaz de transformar um estado inicial em um estado final desejado, respeitando restrições físicas.
 
 A solução foi implementada em Prolog utilizando técnicas de planejamento automático.
 
@@ -19,33 +19,45 @@ A solução foi implementada em Prolog utilizando técnicas de planejamento auto
 
 ## Descrição do Problema
 
-O ambiente consiste em blocos (a, b, c e d) que podem ser posicionados sobre a mesa ou empilhados. Diferentemente do modelo clássico, cada bloco ocupa um intervalo no eixo horizontal (X = 0 até X = 6), exigindo controle de ocupação e suporte.
+O ambiente consiste em blocos (a, b, c e d) que podem ser posicionados sobre a mesa ou empilhados.
+
+- O eixo horizontal (X) varia de **0 a 6**
+- O eixo vertical (H) representa altura (sem limite superior)
+- H = 0 representa o solo
+
+Os blocos possuem tamanhos diferentes:
+
+- a → tamanho 1  
+- b → tamanho 1  
+- c → tamanho 2  
+- d → tamanho 3  
 
 ---
 
-## Representação do Conhecimento
+# Regras do Domínio
 
-Para modelar o problema, foram definidos os seguintes conceitos:
+## Espaço e Ocupação
 
-- largura(Bloco, Tamanho)  
-- ocupacao(PosInicial, PosFinal)  
-- livre(Bloco)  
-- livre_destino(Posicao)  
-- suporte_valido(Bloco, Destino)  
-
-Esses elementos permitem garantir que os blocos sejam posicionados corretamente, respeitando limitações físicas.
+- O espaço horizontal é dividido em intervalos unitários:
+  - (0–1), (1–2), (2–3), (3–4), (4–5), (5–6)
+- Blocos podem ocupar múltiplos espaços dependendo do tamanho
+- Um bloco só pode ocupar uma região se ela estiver livre
 
 ---
 
-## Ações e Planejamento
+## Altura (H)
 
-A ação principal é:
+- H = 0 → solo (não precisa de suporte)
+- H > 0 → precisa obrigatoriamente de suporte (outro bloco abaixo)
 
-- move(Bloco, Origem, Destino)
+---
 
-O sistema utiliza **Goal Regression Planning**, partindo do estado final e regredindo até o estado inicial para gerar o plano.
-
-Execução no Prolog:
+## Estado Inicial
 
 ```prolog
-?- executar_trabalho.
+estado_inicial([
+bloco(a, 3, 4, 0),
+bloco(b, 5, 6, 0),
+bloco(c, 0, 2, 0),
+bloco(d, 3, 6, 1)
+]).
